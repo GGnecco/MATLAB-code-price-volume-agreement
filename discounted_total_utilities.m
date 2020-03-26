@@ -1,0 +1,8 @@
+function [utility_A,utility_B,utility_S]=discounted_total_utilities(utility_A_first_period,utility_B_first_period,utility_S_first_period,utility_A_second_period,utility_B_second_period,utility_S_second_period,beta)
+
+utility_A=utility_A_first_period+beta*utility_A_second_period;
+utility_B=utility_B_first_period+beta*utility_B_second_period;
+utility_S=utility_S_first_period+beta*utility_S_second_period;
+
+end
+
