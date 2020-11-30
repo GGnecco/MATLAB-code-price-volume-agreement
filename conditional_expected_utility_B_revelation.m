@@ -1,4 +1,4 @@
-function conditional_expected_utility_B=conditional_expected_utility_B_revelation(Q_1,S_A,S_B,T,P_L,P_H,P_LL,P_LH,P_HL,P_HH,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH,Q_L,Q_H,Q_T,p_A,s_A,c_A,p_B,c_B,lambda,beta,cases1,vector_cases2)
+function conditional_expected_utility_B=conditional_expected_utility_B_revelation(Q_1,S_A,S_B,T,P_L,P_H,P_LL,P_LH,P_HL,P_HH,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH,Q_L,Q_H,Q_TL,Q_TH,p_A,s_A,c_A,p_B,c_B,lambda,beta,cases1,vector_cases2)
 
 %change this part later
 %cases1='s_A<=p_A';
@@ -20,22 +20,22 @@ function conditional_expected_utility_B=conditional_expected_utility_B_revelatio
 %               'p_B<s_A<=p_A';
 %               'p_B<s_A<=p_A'}
 
-events={'Q_L','Q_L','S_A_L','S_B_L','p_A_L','s_A_L','p_B_LLL';
-        'Q_L','Q_L','S_A_L','S_B_H','p_A_L','s_A_L','p_B_LLH';
-        'Q_L','Q_L','S_A_H','S_B_L','p_A_H','s_A_H','p_B_LHL';
-        'Q_L','Q_L','S_A_H','S_B_H','p_A_H','s_A_H','p_B_LHH';
-        'Q_L','Q_H','S_A_L','S_B_L','p_A_L','s_A_L','p_B_LLL';
-        'Q_L','Q_H','S_A_L','S_B_H','p_A_L','s_A_L','p_B_LLH';
-        'Q_L','Q_H','S_A_H','S_B_L','p_A_H','s_A_H','p_B_LHL';
-        'Q_L','Q_H','S_A_H','S_B_H','p_A_H','s_A_H','p_B_LHH';
-        'Q_H','Q_L','S_A_L','S_B_L','p_A_L','s_A_L','p_B_HLL';
-        'Q_H','Q_L','S_A_L','S_B_H','p_A_L','s_A_L','p_B_HLH';
-        'Q_H','Q_L','S_A_H','S_B_L','p_A_H','s_A_H','p_B_HHL';
-        'Q_H','Q_L','S_A_H','S_B_H','p_A_H','s_A_H','p_B_HHH';
-        'Q_H','Q_H','S_A_L','S_B_L','p_A_L','s_A_L','p_B_HLL';
-        'Q_H','Q_H','S_A_L','S_B_H','p_A_L','s_A_L','p_B_HLH';
-        'Q_H','Q_H','S_A_H','S_B_L','p_A_H','s_A_H','p_B_HHL';
-        'Q_H','Q_H','S_A_H','S_B_H','p_A_H','s_A_H','p_B_HHH'};
+events={'Q_L','Q_L','S_A_L','S_B_L','p_A_L','s_A_L','p_B_LLL','L';
+        'Q_L','Q_L','S_A_L','S_B_H','p_A_L','s_A_L','p_B_LLH','L';
+        'Q_L','Q_L','S_A_H','S_B_L','p_A_H','s_A_H','p_B_LHL','H';
+        'Q_L','Q_L','S_A_H','S_B_H','p_A_H','s_A_H','p_B_LHH','H';
+        'Q_L','Q_H','S_A_L','S_B_L','p_A_L','s_A_L','p_B_LLL','L';
+        'Q_L','Q_H','S_A_L','S_B_H','p_A_L','s_A_L','p_B_LLH','L';
+        'Q_L','Q_H','S_A_H','S_B_L','p_A_H','s_A_H','p_B_LHL','H';
+        'Q_L','Q_H','S_A_H','S_B_H','p_A_H','s_A_H','p_B_LHH','H';
+        'Q_H','Q_L','S_A_L','S_B_L','p_A_L','s_A_L','p_B_HLL','L';
+        'Q_H','Q_L','S_A_L','S_B_H','p_A_L','s_A_L','p_B_HLH','L';
+        'Q_H','Q_L','S_A_H','S_B_L','p_A_H','s_A_H','p_B_HHL','H';
+        'Q_H','Q_L','S_A_H','S_B_H','p_A_H','s_A_H','p_B_HHH','H';
+        'Q_H','Q_H','S_A_L','S_B_L','p_A_L','s_A_L','p_B_HLL','L';
+        'Q_H','Q_H','S_A_L','S_B_H','p_A_L','s_A_L','p_B_HLH','L';
+        'Q_H','Q_H','S_A_H','S_B_L','p_A_H','s_A_H','p_B_HHL','H';
+        'Q_H','Q_H','S_A_H','S_B_H','p_A_H','s_A_H','p_B_HHH','H'};
 
 %1)
 if (strcmp(Q_1,'Q_L') && strcmp(S_A,'S_A_L') && strcmp(S_B,'S_B_L'))
@@ -45,9 +45,10 @@ if (strcmp(Q_1,'Q_L') && strcmp(S_A,'S_A_L') && strcmp(S_B,'S_B_L'))
         Q_2_temp{k}=events{possible_events(k),2};
         S_A_temp{k}='S_A_L';
         S_B_temp{k}='S_B_L';
+        revealedtypeA_temp{k}=events{possible_events(k),8};
         cases2{k}=vector_cases2{possible_events(k)};
         conditional_P_scenario_Q_1_S_A_S_B{k}=conditional_scenario_probability_char_Q_1_S_A_S_B(Q_1_temp{k},Q_2_temp{k},S_A_temp{k},S_B_temp{k},T,P_L,P_H,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH);
-        [utility_A_second_period{k},utility_B_second_period{k},utility_S_second_period{k}]=utilities_second_period_char(Q_2_temp{k},Q_L,Q_H,Q_T,p_A,s_A,c_A,p_B,c_B,lambda,cases2{k});
+        [utility_A_second_period{k},utility_B_second_period{k},utility_S_second_period{k}]=utilities_second_period_char(Q_2_temp{k},Q_L,Q_H,Q_TL,Q_TH,p_A,s_A,c_A,p_B,c_B,lambda,cases2{k},revealedtypeA_temp{k});
         utility_A_second_period{k}=subs(utility_A_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
         utility_B_second_period{k}=subs(utility_B_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
         utility_S_second_period{k}=subs(utility_S_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
@@ -69,9 +70,10 @@ elseif (strcmp(Q_1,'Q_L') && strcmp(S_A,'S_A_L') && strcmp(S_B,'S_B_H'))
         Q_2_temp{k}=events{possible_events(k),2};
         S_A_temp{k}='S_A_L';
         S_B_temp{k}='S_B_H';
+        revealedtypeA_temp{k}=events{possible_events(k),8};
         cases2{k}=vector_cases2{possible_events(k)};
         conditional_P_scenario_Q_1_S_A_S_B{k}=conditional_scenario_probability_char_Q_1_S_A_S_B(Q_1_temp{k},Q_2_temp{k},S_A_temp{k},S_B_temp{k},T,P_L,P_H,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH);
-        [utility_A_second_period{k},utility_B_second_period{k},utility_S_second_period{k}]=utilities_second_period_char(Q_2_temp{k},Q_L,Q_H,Q_T,p_A,s_A,c_A,p_B,c_B,lambda,cases2{k});
+        [utility_A_second_period{k},utility_B_second_period{k},utility_S_second_period{k}]=utilities_second_period_char(Q_2_temp{k},Q_L,Q_H,Q_TL,Q_TH,p_A,s_A,c_A,p_B,c_B,lambda,cases2{k},revealedtypeA_temp{k});
         utility_A_second_period{k}=subs(utility_A_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
         utility_B_second_period{k}=subs(utility_B_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
         utility_S_second_period{k}=subs(utility_S_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
@@ -93,9 +95,10 @@ elseif (strcmp(Q_1,'Q_L') && strcmp(S_A,'S_A_H') && strcmp(S_B,'S_B_L'))
         Q_2_temp{k}=events{possible_events(k),2};
         S_A_temp{k}='S_A_H';
         S_B_temp{k}='S_B_L';
+        revealedtypeA_temp{k}=events{possible_events(k),8};
         cases2{k}=vector_cases2{possible_events(k)};
         conditional_P_scenario_Q_1_S_A_S_B{k}=conditional_scenario_probability_char_Q_1_S_A_S_B(Q_1_temp{k},Q_2_temp{k},S_A_temp{k},S_B_temp{k},T,P_L,P_H,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH);
-        [utility_A_second_period{k},utility_B_second_period{k},utility_S_second_period{k}]=utilities_second_period_char(Q_2_temp{k},Q_L,Q_H,Q_T,p_A,s_A,c_A,p_B,c_B,lambda,cases2{k});
+        [utility_A_second_period{k},utility_B_second_period{k},utility_S_second_period{k}]=utilities_second_period_char(Q_2_temp{k},Q_L,Q_H,Q_TL,Q_TH,p_A,s_A,c_A,p_B,c_B,lambda,cases2{k},revealedtypeA_temp{k});
         utility_A_second_period{k}=subs(utility_A_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
         utility_B_second_period{k}=subs(utility_B_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
         utility_S_second_period{k}=subs(utility_S_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
@@ -117,9 +120,10 @@ elseif (strcmp(Q_1,'Q_L') && strcmp(S_A,'S_A_H') && strcmp(S_B,'S_B_H'))
         Q_2_temp{k}=events{possible_events(k),2};
         S_A_temp{k}='S_A_H';
         S_B_temp{k}='S_B_H';
+        revealedtypeA_temp{k}=events{possible_events(k),8};
         cases2{k}=vector_cases2{possible_events(k)};
         conditional_P_scenario_Q_1_S_A_S_B{k}=conditional_scenario_probability_char_Q_1_S_A_S_B(Q_1_temp{k},Q_2_temp{k},S_A_temp{k},S_B_temp{k},T,P_L,P_H,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH);
-        [utility_A_second_period{k},utility_B_second_period{k},utility_S_second_period{k}]=utilities_second_period_char(Q_2_temp{k},Q_L,Q_H,Q_T,p_A,s_A,c_A,p_B,c_B,lambda,cases2{k});
+        [utility_A_second_period{k},utility_B_second_period{k},utility_S_second_period{k}]=utilities_second_period_char(Q_2_temp{k},Q_L,Q_H,Q_TL,Q_TH,p_A,s_A,c_A,p_B,c_B,lambda,cases2{k},revealedtypeA_temp{k});
         utility_A_second_period{k}=subs(utility_A_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
         utility_B_second_period{k}=subs(utility_B_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
         utility_S_second_period{k}=subs(utility_S_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
@@ -141,9 +145,10 @@ elseif (strcmp(Q_1,'Q_H') && strcmp(S_A,'S_A_L') && strcmp(S_B,'S_B_L'))
         Q_2_temp{k}=events{possible_events(k),2};
         S_A_temp{k}='S_A_L';
         S_B_temp{k}='S_B_L';
+        revealedtypeA_temp{k}=events{possible_events(k),8};
         cases2{k}=vector_cases2{possible_events(k)};
         conditional_P_scenario_Q_1_S_A_S_B{k}=conditional_scenario_probability_char_Q_1_S_A_S_B(Q_1_temp{k},Q_2_temp{k},S_A_temp{k},S_B_temp{k},T,P_L,P_H,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH);
-        [utility_A_second_period{k},utility_B_second_period{k},utility_S_second_period{k}]=utilities_second_period_char(Q_2_temp{k},Q_L,Q_H,Q_T,p_A,s_A,c_A,p_B,c_B,lambda,cases2{k});
+        [utility_A_second_period{k},utility_B_second_period{k},utility_S_second_period{k}]=utilities_second_period_char(Q_2_temp{k},Q_L,Q_H,Q_TL,Q_TH,p_A,s_A,c_A,p_B,c_B,lambda,cases2{k},revealedtypeA_temp{k});
         utility_A_second_period{k}=subs(utility_A_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
         utility_B_second_period{k}=subs(utility_B_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
         utility_S_second_period{k}=subs(utility_S_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
@@ -165,9 +170,10 @@ elseif (strcmp(Q_1,'Q_H') && strcmp(S_A,'S_A_L') && strcmp(S_B,'S_B_H'))
         Q_2_temp{k}=events{possible_events(k),2};
         S_A_temp{k}='S_A_L';
         S_B_temp{k}='S_B_H';
+        revealedtypeA_temp{k}=events{possible_events(k),8};
         cases2{k}=vector_cases2{possible_events(k)};
         conditional_P_scenario_Q_1_S_A_S_B{k}=conditional_scenario_probability_char_Q_1_S_A_S_B(Q_1_temp{k},Q_2_temp{k},S_A_temp{k},S_B_temp{k},T,P_L,P_H,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH);
-        [utility_A_second_period{k},utility_B_second_period{k},utility_S_second_period{k}]=utilities_second_period_char(Q_2_temp{k},Q_L,Q_H,Q_T,p_A,s_A,c_A,p_B,c_B,lambda,cases2{k});
+        [utility_A_second_period{k},utility_B_second_period{k},utility_S_second_period{k}]=utilities_second_period_char(Q_2_temp{k},Q_L,Q_H,Q_TL,Q_TH,p_A,s_A,c_A,p_B,c_B,lambda,cases2{k},revealedtypeA_temp{k});
         utility_A_second_period{k}=subs(utility_A_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
         utility_B_second_period{k}=subs(utility_B_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
         utility_S_second_period{k}=subs(utility_S_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
@@ -189,9 +195,10 @@ elseif (strcmp(Q_1,'Q_H') && strcmp(S_A,'S_A_H') && strcmp(S_B,'S_B_L'))
         Q_2_temp{k}=events{possible_events(k),2};
         S_A_temp{k}='S_A_H';
         S_B_temp{k}='S_B_L';
+        revealedtypeA_temp{k}=events{possible_events(k),8};
         cases2{k}=vector_cases2{possible_events(k)};
         conditional_P_scenario_Q_1_S_A_S_B{k}=conditional_scenario_probability_char_Q_1_S_A_S_B(Q_1_temp{k},Q_2_temp{k},S_A_temp{k},S_B_temp{k},T,P_L,P_H,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH);
-        [utility_A_second_period{k},utility_B_second_period{k},utility_S_second_period{k}]=utilities_second_period_char(Q_2_temp{k},Q_L,Q_H,Q_T,p_A,s_A,c_A,p_B,c_B,lambda,cases2{k});
+        [utility_A_second_period{k},utility_B_second_period{k},utility_S_second_period{k}]=utilities_second_period_char(Q_2_temp{k},Q_L,Q_H,Q_TL,Q_TH,p_A,s_A,c_A,p_B,c_B,lambda,cases2{k},revealedtypeA_temp{k});
         utility_A_second_period{k}=subs(utility_A_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
         utility_B_second_period{k}=subs(utility_B_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
         utility_S_second_period{k}=subs(utility_S_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
@@ -213,9 +220,10 @@ elseif (strcmp(Q_1,'Q_H') && strcmp(S_A,'S_A_H') && strcmp(S_B,'S_B_H'))
         Q_2_temp{k}=events{possible_events(k),2};
         S_A_temp{k}='S_A_H';
         S_B_temp{k}='S_B_H';
+        revealedtypeA_temp{k}=events{possible_events(k),8};
         cases2{k}=vector_cases2{possible_events(k)};
         conditional_P_scenario_Q_1_S_A_S_B{k}=conditional_scenario_probability_char_Q_1_S_A_S_B(Q_1_temp{k},Q_2_temp{k},S_A_temp{k},S_B_temp{k},T,P_L,P_H,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH);
-        [utility_A_second_period{k},utility_B_second_period{k},utility_S_second_period{k}]=utilities_second_period_char(Q_2_temp{k},Q_L,Q_H,Q_T,p_A,s_A,c_A,p_B,c_B,lambda,cases2{k});
+        [utility_A_second_period{k},utility_B_second_period{k},utility_S_second_period{k}]=utilities_second_period_char(Q_2_temp{k},Q_L,Q_H,Q_TL,Q_TH,p_A,s_A,c_A,p_B,c_B,lambda,cases2{k},revealedtypeA_temp{k});
         utility_A_second_period{k}=subs(utility_A_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
         utility_B_second_period{k}=subs(utility_B_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});
         utility_S_second_period{k}=subs(utility_S_second_period{k},{p_A,s_A,p_B},{events{possible_events(k),5},events{possible_events(k),6},events{possible_events(k),7}});

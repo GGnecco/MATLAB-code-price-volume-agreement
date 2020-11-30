@@ -1,4 +1,4 @@
-load('figure1.mat','price_B');
+load('figure1.mat','cost_B');
 load('figure1.mat','optimal_cost_figure');
 optimal_cost_figure1=optimal_cost_figure;
 load('figure2.mat','optimal_cost_figure');
@@ -6,8 +6,8 @@ optimal_cost_figure2=optimal_cost_figure;
 
 figure(1);
 hold on
-plot(price_B,optimal_cost_figure1,'-','LineWidth',2,'Color','blue');
-plot(price_B,optimal_cost_figure2,'--','LineWidth',2,'Color','red');
+plot(cost_B,optimal_cost_figure1,'-','LineWidth',2,'Color','blue');
+plot(cost_B,optimal_cost_figure2,'--','LineWidth',2,'Color','red');
 xlabel('$c_B$', 'interpreter', 'latex', 'Fontsize', 20);
 ylabel('$C_S^\circ$', 'interpreter', 'latex', 'Fontsize', 20);
 set(get(gca,'ylabel'),'rotation',0);

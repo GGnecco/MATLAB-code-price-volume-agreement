@@ -2,27 +2,27 @@ load workspace_simulations_price_volume_agreement.mat
 
 %%%%
 
-price_B=[0:0.01:2];
+cost_B=[0:0.01:2];
 
-optimal_cost_figure=zeros(size(price_B));
+optimal_cost_figure=zeros(size(cost_B));
 
-for index_price_B=1:size(price_B,2)
+for index_price_B=1:size(cost_B,2)
 
     tic
 
 for counter=1:size(A,2)
     
-    f_temp_1=subs(f{counter},Q_T,P_L*Q_L+(1-P_L)*Q_H);
-    A_temp_1=subs(A{counter},Q_T,P_L*Q_L+(1-P_L)*Q_H);
-    b_temp_1=subs(b{counter},Q_T,P_L*Q_L+(1-P_L)*Q_H);
+    f_temp_1=subs(f{counter},{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)});
+    A_temp_1=subs(A{counter},{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)});
+    b_temp_1=subs(b{counter},{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)});
 
     f_temp=subs(f_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL});
     A_temp=subs(A_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL});
     b_temp=subs(b_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL});
 
-    f_num=eval(subs(f_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,price_B(index_price_B)}));
-    A_num=eval(subs(A_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,price_B(index_price_B)}));
-    b_num=eval(subs(b_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,price_B(index_price_B)}));
+    f_num=eval(subs(f_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}));
+    A_num=eval(subs(A_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}));
+    b_num=eval(subs(b_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}));
 
     [x,fval]=linprog(f_num,A_num,b_num,Aeq,beq,lb,ub);
     if size(x,1)>0
@@ -49,12 +49,12 @@ optimal_solution_figure(index_price_B,:)=optimal_solution;
 %tolerance=10^(-7);
 %alternative_indices=find(cost<=(optimal_cost+tolerance));
 
-optimal_participation_constraint_A_L_temp_1=eval(subs(-A{J}(1,:)*optimal_solution'+b{J}(1,:),Q_T,P_L*Q_L+(1-P_L)*Q_H));
-optimal_participation_constraint_A_H_temp_1=eval(subs(-A{J}(2,:)*optimal_solution'+b{J}(2,:),Q_T,P_L*Q_L+(1-P_L)*Q_H));
-optimal_participation_constraint_B_L_L_L_temp_1=eval(subs(-A{J}(3,:)*optimal_solution'+b{J}(3,:),Q_T,P_L*Q_L+(1-P_L)*Q_H));
-optimal_participation_constraint_B_L_H_L_temp_1=eval(subs(-A{J}(4,:)*optimal_solution'+b{J}(4,:),Q_T,P_L*Q_L+(1-P_L)*Q_H));
-optimal_participation_constraint_B_H_L_L_temp_1=eval(subs(-A{J}(5,:)*optimal_solution'+b{J}(5,:),Q_T,P_L*Q_L+(1-P_L)*Q_H));
-optimal_participation_constraint_B_H_H_L_temp_1=eval(subs(-A{J}(6,:)*optimal_solution'+b{J}(6,:),Q_T,P_L*Q_L+(1-P_L)*Q_H));
+optimal_participation_constraint_A_L_temp_1=eval(subs(-A{J}(1,:)*optimal_solution'+b{J}(1,:),{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)}));
+optimal_participation_constraint_A_H_temp_1=eval(subs(-A{J}(2,:)*optimal_solution'+b{J}(2,:),{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)}));
+optimal_participation_constraint_B_L_L_L_temp_1=eval(subs(-A{J}(3,:)*optimal_solution'+b{J}(3,:),{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)}));
+optimal_participation_constraint_B_L_H_L_temp_1=eval(subs(-A{J}(4,:)*optimal_solution'+b{J}(4,:),{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)}));
+optimal_participation_constraint_B_H_L_L_temp_1=eval(subs(-A{J}(5,:)*optimal_solution'+b{J}(5,:),{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)}));
+optimal_participation_constraint_B_H_H_L_temp_1=eval(subs(-A{J}(6,:)*optimal_solution'+b{J}(6,:),{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)}));
 
 optimal_participation_constraint_A_L_temp=eval(subs(optimal_participation_constraint_A_L_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL}));
 optimal_participation_constraint_A_H_temp=eval(subs(optimal_participation_constraint_A_H_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL}));
@@ -63,19 +63,19 @@ optimal_participation_constraint_B_L_H_L_temp=eval(subs(optimal_participation_co
 optimal_participation_constraint_B_H_L_L_temp=eval(subs(optimal_participation_constraint_B_H_L_L_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL}));
 optimal_participation_constraint_B_H_H_L_temp=eval(subs(optimal_participation_constraint_B_H_H_L_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL}));
 
-optimal_participation_constraint_A_L=eval(subs(optimal_participation_constraint_A_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,price_B(index_price_B)}))
-optimal_participation_constraint_A_H=eval(subs(optimal_participation_constraint_A_H_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,price_B(index_price_B)}))
-optimal_participation_constraint_B_L_L_L=eval(subs(beta*optimal_participation_constraint_B_L_L_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,price_B(index_price_B)}))
-optimal_participation_constraint_B_L_H_L=eval(subs(beta*optimal_participation_constraint_B_L_H_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,price_B(index_price_B)}))
-optimal_participation_constraint_B_H_L_L=eval(subs(beta*optimal_participation_constraint_B_H_L_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,price_B(index_price_B)}))
-optimal_participation_constraint_B_H_H_L=eval(subs(beta*optimal_participation_constraint_B_H_H_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,price_B(index_price_B)}))
+optimal_participation_constraint_A_L=eval(subs(optimal_participation_constraint_A_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}))
+optimal_participation_constraint_A_H=eval(subs(optimal_participation_constraint_A_H_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}))
+optimal_participation_constraint_B_L_L_L=eval(subs(beta*optimal_participation_constraint_B_L_L_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}))
+optimal_participation_constraint_B_L_H_L=eval(subs(beta*optimal_participation_constraint_B_L_H_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}))
+optimal_participation_constraint_B_H_L_L=eval(subs(beta*optimal_participation_constraint_B_H_L_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}))
+optimal_participation_constraint_B_H_H_L=eval(subs(beta*optimal_participation_constraint_B_H_H_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}))
 
 optimal_participation_constraint_A=eval(subs(optimal_participation_constraint_A_L*P_L+optimal_participation_constraint_A_H*(1-P_L),P_L,0.5))
 optimal_participation_constraint_B=eval(subs(optimal_participation_constraint_B_L_L_L*P_L+optimal_participation_constraint_B_H_H_L*(1-P_L),P_L,0.5))
 
-average_price_A_L_1=optimal_solution(2)
-average_price_A_H_1_temp=eval(subs((optimal_solution(4)*Q_T+optimal_solution(3)*(Q_H-Q_T))/Q_H,Q_T,P_L*Q_L+(1-P_L)*Q_H))
-average_price_A_H_1=eval(subs(average_price_A_H_1_temp,{Q_L,Q_H,P_L},{2,5,0.5}))
+%average_price_A_L_1=optimal_solution(2)
+%average_price_A_H_1_temp=eval(subs((optimal_solution(4)*Q_T+optimal_solution(3)*(Q_H-Q_T))/Q_H,Q_T,P_L*Q_L+(1-P_L)*Q_H))
+%average_price_A_H_1=eval(subs(average_price_A_H_1_temp,{Q_L,Q_H,P_L},{2,5,0.5}))
 
 end
 
@@ -119,7 +119,7 @@ end
 
 figure(1);
 hold on
-plot(price_B,optimal_cost_figure,'-','LineWidth',2,'Color','blue');
+plot(cost_B,optimal_cost_figure,'-','LineWidth',2,'Color','blue');
 xlabel('$c_B$', 'interpreter', 'latex', 'Fontsize', 20);
 ylabel('$C_S^\circ$', 'interpreter', 'latex', 'Fontsize', 20);
 set(get(gca,'ylabel'),'rotation',0);

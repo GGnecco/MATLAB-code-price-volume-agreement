@@ -3,7 +3,7 @@ close all;
 clc;
 
 syms p_A s_A p_B
-syms Q_L Q_H Q_T
+syms Q_L Q_H Q_TL Q_TH
 syms c_A c_B
 
 syms lambda
@@ -48,7 +48,7 @@ tic
 %     for k2=1:2 %1:1 %relationship between s_A_H,p_A_H and p_B_LHL
 %         for k3=1:2 %1:1 %relationship between s_A_H,p_A_H  and p_B_H_H_L
 %             for k4=1:2 %1:1 %relationship between s_A_L,p_A_L and p_B_H_L_L
-%                 if counter==9
+%                 if counter==1
 %                    k1
 %                    k2
 %                    k3
@@ -74,14 +74,14 @@ for k1=1:2 %1:1 %relationship between s_A_L,p_A_L and p_B_LLL
 %third_simplification: perfect information for A;
 
 %%%%%%%%
-[expected_utility_objective_A,expected_utility_objective_B,expected_utility_objective_S]=expected_utilities_objective_revelation(T,P_L,P_H,P_LL,P_LH,P_HL,P_HH,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH,Q_L,Q_H,Q_T,p_A,s_A,c_A,p_B,c_B,lambda,beta,cases1,vector_cases2);
+[expected_utility_objective_A,expected_utility_objective_B,expected_utility_objective_S]=expected_utilities_objective_revelation(T,P_L,P_H,P_LL,P_LH,P_HL,P_HH,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH,Q_L,Q_H,Q_TL,Q_TH,p_A,s_A,c_A,p_B,c_B,lambda,beta,cases1,vector_cases2);
 expected_utility_objective_S_simplified=simplify(subs(expected_utility_objective_S,{P_H,P_LH,P_HH,S_A_LH,S_A_HH,S_B_LH,S_B_HH},{1-P_L,1-P_LL,1-P_HL,1-S_A_LL,1-S_A_HL,1-S_B_LL,1-S_B_HL}));
 expected_utility_objective_S_simplified_2=simplify(subs(expected_utility_objective_S_simplified,{S_B_LL,S_B_HL,p_B_LLH,p_B_LHH,p_B_HLH,p_B_HHH},{0.5,0.5,p_B_LLL,p_B_LHL,p_B_HLL,p_B_HHL}));
 expected_utility_objective_S_simplified_3=simplify(subs(expected_utility_objective_S_simplified_2,{S_A_LL,S_A_HL},{1,0}));
 %%%%%%%%
 
 %%%%%%%%
-[participation_constraint_A_L,participation_constraint_A_H]=participation_constraint_A(T,P_L,P_H,P_LL,P_LH,P_HL,P_HH,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH,Q_L,Q_H,Q_T,p_A,s_A,c_A,p_B,c_B,lambda,beta,cases1,vector_cases2);
+[participation_constraint_A_L,participation_constraint_A_H]=participation_constraint_A(T,P_L,P_H,P_LL,P_LH,P_HL,P_HH,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH,Q_L,Q_H,Q_TL,Q_TH,p_A,s_A,c_A,p_B,c_B,lambda,beta,cases1,vector_cases2);
 participation_constraint_A_L_simplified=simplify(subs(participation_constraint_A_L,{P_H,P_LH,P_HH,S_A_LH,S_A_HH,S_B_LH,S_B_HH},{1-P_L,1-P_LL,1-P_HL,1-S_A_LL,1-S_A_HL,1-S_B_LL,1-S_B_HL}));
 participation_constraint_A_L_simplified_2=simplify(subs(participation_constraint_A_L_simplified,{S_B_LL,S_B_HL,p_B_LLH,p_B_LHH,p_B_HLH,p_B_HHH},{0.5,0.5,p_B_LLL,p_B_LHL,p_B_HLL,p_B_HHL}));
 participation_constraint_A_L_simplified_3=simplify(subs(participation_constraint_A_L_simplified_2,{S_A_LL,S_A_HL},{1,0}));
@@ -92,7 +92,7 @@ participation_constraint_A_H_simplified_3=simplify(subs(participation_constraint
 %%%%%%%%%%%%%%%%
 
 %%%%%%%%
-[participation_constraint_B_L_L_L,participation_constraint_B_L_L_H,participation_constraint_B_L_H_L,participation_constraint_B_L_H_H,participation_constraint_B_H_L_L,participation_constraint_B_H_L_H,participation_constraint_B_H_H_L,participation_constraint_B_H_H_H]=participation_constraint_B(T,P_L,P_H,P_LL,P_LH,P_HL,P_HH,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH,Q_L,Q_H,Q_T,p_A,s_A,c_A,p_B,c_B,lambda,beta,cases1,vector_cases2);
+[participation_constraint_B_L_L_L,participation_constraint_B_L_L_H,participation_constraint_B_L_H_L,participation_constraint_B_L_H_H,participation_constraint_B_H_L_L,participation_constraint_B_H_L_H,participation_constraint_B_H_H_L,participation_constraint_B_H_H_H]=participation_constraint_B(T,P_L,P_H,P_LL,P_LH,P_HL,P_HH,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH,Q_L,Q_H,Q_TL,Q_TH,p_A,s_A,c_A,p_B,c_B,lambda,beta,cases1,vector_cases2);
 participation_constraint_B_L_L_L_simplified=simplify(subs(participation_constraint_B_L_L_L,{P_H,P_LH,P_HH,S_A_LH,S_A_HH,S_B_LH,S_B_HH},{1-P_L,1-P_LL,1-P_HL,1-S_A_LL,1-S_A_HL,1-S_B_LL,1-S_B_HL}));
 participation_constraint_B_L_L_L_simplified_2=simplify(subs(participation_constraint_B_L_L_L_simplified,{S_B_LL,S_B_HL,p_B_LLH,p_B_LHH,p_B_HLH,p_B_HHH},{0.5,0.5,p_B_LLL,p_B_LHL,p_B_HLL,p_B_HHL}));
 participation_constraint_B_L_L_L_simplified_3=simplify(subs(participation_constraint_B_L_L_L_simplified_2,{S_A_LL,S_A_HL},{1,0}));
@@ -127,7 +127,7 @@ participation_constraint_B_H_H_L_simplified_3=simplify(subs(participation_constr
 %%%%%%%%
 
 %%%%%%%%
-[incentive_compatibility_constraint_A_L,incentive_compatibility_constraint_A_H]=incentive_compatibility_constraint_A(T,P_L,P_H,P_LL,P_LH,P_HL,P_HH,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH,Q_L,Q_H,Q_T,p_A,s_A,c_A,p_B,c_B,lambda,beta,cases1,vector_cases2);
+[incentive_compatibility_constraint_A_L,incentive_compatibility_constraint_A_H]=incentive_compatibility_constraint_A(T,P_L,P_H,P_LL,P_LH,P_HL,P_HH,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH,Q_L,Q_H,Q_TL,Q_TH,p_A,s_A,c_A,p_B,c_B,lambda,beta,cases1,vector_cases2);
 incentive_compatibility_constraint_A_L_simplified=simplify(subs(incentive_compatibility_constraint_A_L,{P_H,P_LH,P_HH,S_A_LH,S_A_HH,S_B_LH,S_B_HH},{1-P_L,1-P_LL,1-P_HL,1-S_A_LL,1-S_A_HL,1-S_B_LL,1-S_B_HL}));
 incentive_compatibility_constraint_A_L_simplified_2=simplify(subs(incentive_compatibility_constraint_A_L_simplified,{S_B_LL,S_B_LH,S_B_HL,S_B_HH,p_B_LLH,p_B_LHL,p_B_HLH,p_B_HHL},{1/2,1/2,1/2,1/2,p_B_LLL,p_B_LHH,p_B_HLL,p_B_HHH}));
 incentive_compatibility_constraint_A_L_simplified_3=simplify(subs(incentive_compatibility_constraint_A_L_simplified_2,{S_A_LL,S_A_HL},{1,0}));
@@ -138,7 +138,7 @@ incentive_compatibility_constraint_A_H_simplified_3=simplify(subs(incentive_comp
 %%%%%%%%%%%%%%%%
 
 % %%%%%%%%
-% [incentive_compatibility_constraint_B_L_L_L,incentive_compatibility_constraint_B_L_L_H,incentive_compatibility_constraint_B_L_H_L,incentive_compatibility_constraint_B_L_H_H,incentive_compatibility_constraint_B_H_L_L,incentive_compatibility_constraint_B_H_L_H,incentive_compatibility_constraint_B_H_H_L,incentive_compatibility_constraint_B_H_H_H]=incentive_compatibility_constraint_B(T,P_L,P_H,P_LL,P_LH,P_HL,P_HH,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH,Q_L,Q_H,Q_T,p_A,s_A,c_A,p_B,c_B,lambda,beta,cases1,vector_cases2);
+% [incentive_compatibility_constraint_B_L_L_L,incentive_compatibility_constraint_B_L_L_H,incentive_compatibility_constraint_B_L_H_L,incentive_compatibility_constraint_B_L_H_H,incentive_compatibility_constraint_B_H_L_L,incentive_compatibility_constraint_B_H_L_H,incentive_compatibility_constraint_B_H_H_L,incentive_compatibility_constraint_B_H_H_H]=incentive_compatibility_constraint_B(T,P_L,P_H,P_LL,P_LH,P_HL,P_HH,S_A_LL,S_A_LH,S_A_HL,S_A_HH,S_B_LL,S_B_LH,S_B_HL,S_B_HH,Q_L,Q_H,Q_TL,Q_TH,p_A,s_A,c_A,p_B,c_B,lambda,beta,cases1,vector_cases2);
 % incentive_compatibility_constraint_B_L_L_L_simplified=simplify(subs(incentive_compatibility_constraint_B_L_L_L,{P_H,P_LH,P_HH,S_A_LH,S_A_HH,S_B_LH,S_B_HH},{1-P_L,1-P_LL,1-P_HL,1-S_A_LL,1-S_A_HL,1-S_B_LL,1-S_B_HL}));
 % incentive_compatibility_constraint_B_L_L_L_simplified_2=simplify(subs(incentive_compatibility_constraint_B_L_L_L_simplified,{S_B_LL,S_B_LH,S_B_HL,S_B_HH,p_B_LLH,p_B_LHL,p_B_HLH,p_B_HHL},{1/2,1/2,1/2,1/2,p_B_LLL,p_B_LHH,p_B_HLL,p_B_HHH}));
 % incentive_compatibility_constraint_B_L_L_L_simplified_3=simplify(subs(incentive_compatibility_constraint_B_L_L_L_simplified_2,{S_A_LL,S_A_HL},{1,0}));
@@ -219,9 +219,9 @@ beq=[];
 lb=zeros(8,1);
 ub=[];
 
-f_temp_1=subs(f{counter},Q_T,P_L*Q_L+(1-P_L)*Q_H);
-A_temp_1=subs(A{counter},Q_T,P_L*Q_L+(1-P_L)*Q_H);
-b_temp_1=subs(b{counter},Q_T,P_L*Q_L+(1-P_L)*Q_H);
+f_temp_1=subs(f{counter},{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)});
+A_temp_1=subs(A{counter},{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)});
+b_temp_1=subs(b{counter},{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)});
 
 f_temp=subs(f_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL});
 A_temp=subs(A_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL});
@@ -264,9 +264,9 @@ tic
 
 for counter=1:size(A,2)
     
-    f_temp_1=subs(f{counter},Q_T,P_L*Q_L+(1-P_L)*Q_H);
-    A_temp_1=subs(A{counter},Q_T,P_L*Q_L+(1-P_L)*Q_H);
-    b_temp_1=subs(b{counter},Q_T,P_L*Q_L+(1-P_L)*Q_H);
+    f_temp_1=subs(f{counter},{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)});
+    A_temp_1=subs(A{counter},{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)});
+    b_temp_1=subs(b{counter},{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)});
 
     f_temp=subs(f_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL});
     A_temp=subs(A_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL});
@@ -299,14 +299,14 @@ tolerance=10^(-7);
 alternative_indices=find(cost<=(optimal_cost+tolerance));
 solution(alternative_indices,:)
 
-optimal_participation_constraint_A_L_temp_1=eval(subs(-A{J}(1,:)*optimal_solution'+b{J}(1,:),Q_T,P_L*Q_L+(1-P_L)*Q_H));
-optimal_participation_constraint_A_H_temp_1=eval(subs(-A{J}(2,:)*optimal_solution'+b{J}(2,:),Q_T,P_L*Q_L+(1-P_L)*Q_H));
-optimal_participation_constraint_B_L_L_L_temp_1=eval(subs(-A{J}(3,:)*optimal_solution'+b{J}(3,:),Q_T,P_L*Q_L+(1-P_L)*Q_H));
-optimal_participation_constraint_B_L_H_L_temp_1=eval(subs(-A{J}(4,:)*optimal_solution'+b{J}(4,:),Q_T,P_L*Q_L+(1-P_L)*Q_H));
-optimal_participation_constraint_B_H_L_L_temp_1=eval(subs(-A{J}(5,:)*optimal_solution'+b{J}(5,:),Q_T,P_L*Q_L+(1-P_L)*Q_H));
-optimal_participation_constraint_B_H_H_L_temp_1=eval(subs(-A{J}(6,:)*optimal_solution'+b{J}(6,:),Q_T,P_L*Q_L+(1-P_L)*Q_H));
-optimal_incentive_compatibility_constraint_A_L_temp_1=eval(subs(-A{J}(7,:)*optimal_solution'+b{J}(7,:),Q_T,P_L*Q_L+(1-P_L)*Q_H));
-optimal_incentive_compatibility_constraint_A_H_temp_1=eval(subs(-A{J}(8,:)*optimal_solution'+b{J}(8,:),Q_T,P_L*Q_L+(1-P_L)*Q_H));
+optimal_participation_constraint_A_L_temp_1=eval(subs(-A{J}(1,:)*optimal_solution'+b{J}(1,:),{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)}));
+optimal_participation_constraint_A_H_temp_1=eval(subs(-A{J}(2,:)*optimal_solution'+b{J}(2,:),{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)}));
+optimal_participation_constraint_B_L_L_L_temp_1=eval(subs(-A{J}(3,:)*optimal_solution'+b{J}(3,:),{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)}));
+optimal_participation_constraint_B_L_H_L_temp_1=eval(subs(-A{J}(4,:)*optimal_solution'+b{J}(4,:),{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)}));
+optimal_participation_constraint_B_H_L_L_temp_1=eval(subs(-A{J}(5,:)*optimal_solution'+b{J}(5,:),{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)}));
+optimal_participation_constraint_B_H_H_L_temp_1=eval(subs(-A{J}(6,:)*optimal_solution'+b{J}(6,:),{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)}));
+optimal_incentive_compatibility_constraint_A_L_temp_1=eval(subs(-A{J}(7,:)*optimal_solution'+b{J}(7,:),{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)}));
+optimal_incentive_compatibility_constraint_A_H_temp_1=eval(subs(-A{J}(8,:)*optimal_solution'+b{J}(8,:),{Q_TL,Q_TH},{(1*Q_L+beta*(P_LL*Q_L+(1-P_LL)*Q_H))/(1+beta),(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)}));
 
 optimal_participation_constraint_A_L_temp=eval(subs(optimal_participation_constraint_A_L_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL}));
 optimal_participation_constraint_A_H_temp=eval(subs(optimal_participation_constraint_A_H_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL}));
@@ -329,9 +329,11 @@ optimal_incentive_compatibility_constraint_A_H=eval(subs(beta*optimal_incentive_
 optimal_participation_constraint_A=eval(subs(optimal_participation_constraint_A_L*P_L+optimal_participation_constraint_A_H*(1-P_L),P_L,0.5))
 optimal_participation_constraint_B=eval(subs(optimal_participation_constraint_B_L_L_L*P_L+optimal_participation_constraint_B_H_H_L*(1-P_L),P_L,0.5))
 
+syms Q_T
+
 average_price_A_L_1=optimal_solution(2)
-average_price_A_H_1_temp=eval(subs((optimal_solution(4)*Q_T+optimal_solution(3)*(Q_H-Q_T))/Q_H,Q_T,P_L*Q_L+(1-P_L)*Q_H))
-average_price_A_H_1=eval(subs(average_price_A_H_1_temp,{Q_L,Q_H,P_L},{2,5,0.5}))
+average_price_A_H_1_temp=eval(subs((optimal_solution(4)*Q_T+optimal_solution(3)*(Q_H-Q_T))/Q_H,Q_T,(1*Q_H+beta*(P_HL*Q_L+(1-P_HL)*Q_H))/(1+beta)))
+average_price_A_H_1=eval(subs(average_price_A_H_1_temp,{beta,P_HL,Q_L,Q_H,P_L},{0.8,0.3,2,5,0.5}))
 
 %%%%% check
 % 
