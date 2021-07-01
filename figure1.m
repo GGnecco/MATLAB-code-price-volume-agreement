@@ -2,7 +2,7 @@ load workspace_simulations_price_volume_agreement.mat
 
 %%%%
 
-cost_B=[0:0.01:2];
+cost_B=[0:0.1:20];
 
 optimal_cost_figure=zeros(size(cost_B));
 
@@ -20,9 +20,9 @@ for counter=1:size(A,2)
     A_temp=subs(A_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL});
     b_temp=subs(b_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL});
 
-    f_num=eval(subs(f_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}));
-    A_num=eval(subs(A_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}));
-    b_num=eval(subs(b_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}));
+    f_num=eval(subs(f_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,cost_B(index_price_B)}));
+    A_num=eval(subs(A_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,cost_B(index_price_B)}));
+    b_num=eval(subs(b_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,cost_B(index_price_B)}));
 
     [x,fval]=linprog(f_num,A_num,b_num,Aeq,beq,lb,ub);
     if size(x,1)>0
@@ -63,12 +63,12 @@ optimal_participation_constraint_B_L_H_L_temp=eval(subs(optimal_participation_co
 optimal_participation_constraint_B_H_L_L_temp=eval(subs(optimal_participation_constraint_B_H_L_L_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL}));
 optimal_participation_constraint_B_H_H_L_temp=eval(subs(optimal_participation_constraint_B_H_H_L_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL}));
 
-optimal_participation_constraint_A_L=eval(subs(optimal_participation_constraint_A_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}))
-optimal_participation_constraint_A_H=eval(subs(optimal_participation_constraint_A_H_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}))
-optimal_participation_constraint_B_L_L_L=eval(subs(beta*optimal_participation_constraint_B_L_L_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}))
-optimal_participation_constraint_B_L_H_L=eval(subs(beta*optimal_participation_constraint_B_L_H_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}))
-optimal_participation_constraint_B_H_L_L=eval(subs(beta*optimal_participation_constraint_B_H_L_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}))
-optimal_participation_constraint_B_H_H_L=eval(subs(beta*optimal_participation_constraint_B_H_H_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,cost_B(index_price_B)}))
+optimal_participation_constraint_A_L=eval(subs(optimal_participation_constraint_A_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,cost_B(index_price_B)}))
+optimal_participation_constraint_A_H=eval(subs(optimal_participation_constraint_A_H_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,cost_B(index_price_B)}))
+optimal_participation_constraint_B_L_L_L=eval(subs(beta*optimal_participation_constraint_B_L_L_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,cost_B(index_price_B)}))
+optimal_participation_constraint_B_L_H_L=eval(subs(beta*optimal_participation_constraint_B_L_H_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,cost_B(index_price_B)}))
+optimal_participation_constraint_B_H_L_L=eval(subs(beta*optimal_participation_constraint_B_H_L_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,cost_B(index_price_B)}))
+optimal_participation_constraint_B_H_H_L=eval(subs(beta*optimal_participation_constraint_B_H_H_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,cost_B(index_price_B)}))
 
 optimal_participation_constraint_A=eval(subs(optimal_participation_constraint_A_L*P_L+optimal_participation_constraint_A_H*(1-P_L),P_L,0.5))
 optimal_participation_constraint_B=eval(subs(optimal_participation_constraint_B_L_L_L*P_L+optimal_participation_constraint_B_H_H_L*(1-P_L),P_L,0.5))
@@ -100,7 +100,7 @@ end
 % participation_constraint_A_H_simplified_4=subs(participation_constraint_A_H_simplified_3,Q_T,P_L*Q_L+(1-P_L)*Q_H);
 % participation_constraint_A_H_simplified_5=subs(participation_constraint_A_H_simplified_4,{P_LL,P_HL},{T_P_LL,T_P_HL});
 % 
-% subs(participation_constraint_A_H_simplified_5,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B,s_A_L,p_A_L,s_A_H,p_A_H,p_B_LLL,p_B_LHL,p_B_HLL,p_B_HHL},{0,0.8,2,5,0.5,0.7,0.3,1,1,0.1,trial_solution(1),trial_solution(2),trial_solution(3),trial_solution(4),trial_solution(5),trial_solution(6),trial_solution(7),trial_solution(8)})
+% subs(participation_constraint_A_H_simplified_5,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B,s_A_L,p_A_L,s_A_H,p_A_H,p_B_LLL,p_B_LHL,p_B_HLL,p_B_HHL},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,0.1,trial_solution(1),trial_solution(2),trial_solution(3),trial_solution(4),trial_solution(5),trial_solution(6),trial_solution(7),trial_solution(8)})
 % 
 % expected_utility_objective_B_simplified=simplify(subs(expected_utility_objective_B,{P_H,P_LH,P_HH,S_A_LH,S_A_HH,S_B_LH,S_B_HH},{1-P_L,1-P_LL,1-P_HL,1-S_A_LL,1-S_A_HL,1-S_B_LL,1-S_B_HL}));
 % expected_utility_objective_B_simplified_2=simplify(subs(expected_utility_objective_B_simplified,{S_B_LL,S_B_HL,p_B_LLH,p_B_LHH,p_B_HLH,p_B_HHH},{0.5,0.5,p_B_LLL,p_B_LHL,p_B_HLL,p_B_HHL}));
@@ -108,7 +108,7 @@ end
 % expected_utility_objective_B_simplified_4=subs(expected_utility_objective_B_simplified_3,Q_T,P_L*Q_L+(1-P_L)*Q_H);
 % expected_utility_objective_B_simplified_5=subs(expected_utility_objective_B_simplified_4,{P_LL,P_HL},{T_P_LL,T_P_HL});
 % 
-% subs(expected_utility_objective_B_simplified_5,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B,s_A_L,p_A_L,s_A_H,p_A_H,p_B_LLL,p_B_LHL,p_B_HLL,p_B_HHL},{0,0.8,2,5,0.5,0.7,0.3,1,1,0.1,trial_solution(1),trial_solution(2),trial_solution(3),trial_solution(4),trial_solution(5),trial_solution(6),trial_solution(7),trial_solution(8)})
+% subs(expected_utility_objective_B_simplified_5,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B,s_A_L,p_A_L,s_A_H,p_A_H,p_B_LLL,p_B_LHL,p_B_HLL,p_B_HHL},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,0.1,trial_solution(1),trial_solution(2),trial_solution(3),trial_solution(4),trial_solution(5),trial_solution(6),trial_solution(7),trial_solution(8)})
 % 
 % counter=counter+1;
 %             end

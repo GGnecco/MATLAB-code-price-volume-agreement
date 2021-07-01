@@ -169,9 +169,9 @@ f_temp=subs(f_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL});
 A_temp=subs(A_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL});
 b_temp=subs(b_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL});
 
-f_num=eval(subs(f_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,10}));
-A_num=eval(subs(A_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,10}));
-b_num=eval(subs(b_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,10}));
+f_num=eval(subs(f_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,100}));
+A_num=eval(subs(A_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,100}));
+b_num=eval(subs(b_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,100}));
 
 [x,fval]=linprog(f_num,A_num,b_num,Aeq,beq,lb,ub);
 if size(x,1)>0
@@ -212,9 +212,9 @@ for counter=1:size(A,2)
     A_temp=subs(A_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL});
     b_temp=subs(b_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL});
 
-    f_num=eval(subs(f_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,0.1}));
-    A_num=eval(subs(A_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,0.1}));
-    b_num=eval(subs(b_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,0.1}));
+    f_num=eval(subs(f_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,10}));
+    A_num=eval(subs(A_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,10}));
+    b_num=eval(subs(b_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,10}));
 
     [x,fval]=linprog(f_num,A_num,b_num,Aeq,beq,lb,ub);
     if size(x,1)>0
@@ -257,14 +257,14 @@ optimal_participation_constraint_B_H_H_L_temp=eval(subs(optimal_participation_co
 optimal_incentive_compatibility_constraint_A_L_temp=eval(subs(optimal_incentive_compatibility_constraint_A_L_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL}));
 optimal_incentive_compatibility_constraint_A_H_temp=eval(subs(optimal_incentive_compatibility_constraint_A_H_temp_1,{P_LL,P_HL},{T_P_LL,T_P_HL}));
 
-optimal_participation_constraint_A_L=eval(subs(optimal_participation_constraint_A_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,0.1}))
-optimal_participation_constraint_A_H=eval(subs(optimal_participation_constraint_A_H_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,0.1}))
-optimal_participation_constraint_B_L_L_L=eval(subs(beta*optimal_participation_constraint_B_L_L_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,0.1}))
-optimal_participation_constraint_B_L_H_L=eval(subs(beta*optimal_participation_constraint_B_L_H_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,0.1}))
-optimal_participation_constraint_B_H_L_L=eval(subs(beta*optimal_participation_constraint_B_H_L_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,0.1}))
-optimal_participation_constraint_B_H_H_L=eval(subs(beta*optimal_participation_constraint_B_H_H_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,0.1}))
-optimal_incentive_compatibility_constraint_A_L=eval(subs(beta*optimal_incentive_compatibility_constraint_A_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,0.1}))
-optimal_incentive_compatibility_constraint_A_H=eval(subs(beta*optimal_incentive_compatibility_constraint_A_H_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2,5,0.5,0.7,0.3,1,1,0.1}))
+optimal_participation_constraint_A_L=eval(subs(optimal_participation_constraint_A_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,10}))
+optimal_participation_constraint_A_H=eval(subs(optimal_participation_constraint_A_H_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,10}))
+optimal_participation_constraint_B_L_L_L=eval(subs(beta*optimal_participation_constraint_B_L_L_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,10}))
+optimal_participation_constraint_B_L_H_L=eval(subs(beta*optimal_participation_constraint_B_L_H_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,10}))
+optimal_participation_constraint_B_H_L_L=eval(subs(beta*optimal_participation_constraint_B_H_L_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,10}))
+optimal_participation_constraint_B_H_H_L=eval(subs(beta*optimal_participation_constraint_B_H_H_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,10}))
+optimal_incentive_compatibility_constraint_A_L=eval(subs(beta*optimal_incentive_compatibility_constraint_A_L_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,10}))
+optimal_incentive_compatibility_constraint_A_H=eval(subs(beta*optimal_incentive_compatibility_constraint_A_H_temp,{lambda,beta,Q_L,Q_H,P_L,T_P_LL,T_P_HL,F_C_A,c_A,c_B},{0,0.8,2*10^6,5*10^6,0.5,0.7,0.3,10^7,10,10}))
 
 optimal_participation_constraint_A=eval(subs(optimal_participation_constraint_A_L*P_L+optimal_participation_constraint_A_H*(1-P_L),P_L,0.5))
 optimal_participation_constraint_B=eval(subs(optimal_participation_constraint_B_L_L_L*P_L+optimal_participation_constraint_B_H_H_L*(1-P_L),P_L,0.5))
